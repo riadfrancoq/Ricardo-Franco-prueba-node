@@ -43,3 +43,24 @@ export const addProductoToTienda = async(req, res) => {
     }
 
 };
+
+
+export const getProductosFromTiendas = async (req, res) => {
+
+    const {id} = req.params;
+
+    try {
+       
+        const [rows] = await pool.query("SELECT * FROM WHERE id_tienda = ?",[id]);
+        res.status(200).json({
+            message: "200",
+            rows
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Oops Something goes wrong"
+        });
+    }
+
+};
