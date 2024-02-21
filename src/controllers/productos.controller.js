@@ -51,7 +51,7 @@ export const getProductosFromTiendas = async (req, res) => {
 
     try {
        
-        const [rows] = await pool.query("SELECT * FROM WHERE id_tienda = ?",[id]);
+        const [rows] = await pool.query("SELECT tp.compra_maxima, tp.valor, p.estado, p.kit, p.barcode, p.nombre AS producto, p.presentacion, p.descripcion, p.foto, p.peso  FROM tiendas_productos AS tp JOIN productos AS p ON tp.id_producto = p.id JOIN tiendas_promociones AS tpro ON tpro.id_tienda = ?  WHERE tp.id_tienda = ? AND tpro.estado = 1 AND DATE(NOW()) >= tpro.inicio AND DATE(NOW()) <= tpro.fin ",[id, id]);
         res.status(200).json({
             message: "200",
             rows
