@@ -3,7 +3,7 @@ const { Model, Sequelize } = _sequelize;
 
 export default class tiendas_distancias extends Model {
   static init(sequelize, DataTypes) {
-  return super.init({
+  return sequelize.define('tiendas_distancias', {
     id: {
       autoIncrement: true,
       type: DataTypes.MEDIUMINT.UNSIGNED,
@@ -32,7 +32,6 @@ export default class tiendas_distancias extends Model {
       comment: "Null= +nn mt. Se usa para dar valor cuando la distancia sobre pasa la distancia mayor"
     }
   }, {
-    sequelize,
     tableName: 'tiendas_distancias',
     timestamps: false,
     indexes: [

@@ -3,7 +3,7 @@ const { Model, Sequelize } = _sequelize;
 
 export default class pedidos_estados extends Model {
   static init(sequelize, DataTypes) {
-  return super.init({
+  return sequelize.define('pedidos_estados', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
@@ -24,7 +24,6 @@ export default class pedidos_estados extends Model {
       }
     }
   }, {
-    sequelize,
     tableName: 'pedidos_estados',
     timestamps: true,
     indexes: [

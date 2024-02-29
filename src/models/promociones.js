@@ -3,7 +3,7 @@ const { Model, Sequelize } = _sequelize;
 
 export default class promociones extends Model {
   static init(sequelize, DataTypes) {
-  return super.init({
+  return sequelize.define('promociones', {
     id: {
       autoIncrement: true,
       type: DataTypes.MEDIUMINT.UNSIGNED,
@@ -36,7 +36,6 @@ export default class promociones extends Model {
       comment: "0=No 1=Si... Lunes=Día_1 Domingo=Día_7... Aplica para Full_categoría"
     }
   }, {
-    sequelize,
     tableName: 'promociones',
     timestamps: false,
     indexes: [

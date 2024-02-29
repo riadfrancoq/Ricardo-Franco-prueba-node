@@ -3,7 +3,7 @@ const { Model, Sequelize } = _sequelize;
 
 export default class users_direcciones extends Model {
   static init(sequelize, DataTypes) {
-  return super.init({
+  return sequelize.define('users_direcciones', {
     id: {
       autoIncrement: true,
       type: DataTypes.MEDIUMINT.UNSIGNED,
@@ -32,7 +32,6 @@ export default class users_direcciones extends Model {
       }
     }
   }, {
-    sequelize,
     tableName: 'users_direcciones',
     timestamps: false,
     indexes: [

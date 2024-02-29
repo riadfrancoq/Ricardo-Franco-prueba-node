@@ -3,7 +3,7 @@ const { Model, Sequelize } = _sequelize;
 
 export default class tiendas extends Model {
   static init(sequelize, DataTypes) {
-  return super.init({
+  return sequelize.define('tiendas', {
     id: {
       autoIncrement: true,
       type: DataTypes.SMALLINT.UNSIGNED,
@@ -62,7 +62,6 @@ export default class tiendas extends Model {
       comment: "Arreglo de los días en trabaja el Cedis.. 0=No trabaja 1=Si trabaja... Lunes=Día_1 Domingo=Día_7"
     }
   }, {
-    sequelize,
     tableName: 'tiendas',
     timestamps: false,
     indexes: [

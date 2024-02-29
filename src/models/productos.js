@@ -3,7 +3,7 @@ const { Model, Sequelize } = _sequelize;
 
 export default class productos extends Model {
   static init(sequelize, DataTypes) {
-  return super.init({
+  return sequelize.define('productos', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
@@ -52,7 +52,6 @@ export default class productos extends Model {
       comment: "En Kilogramos"
     }
   }, {
-    sequelize,
     tableName: 'productos',
     timestamps: false,
     indexes: [

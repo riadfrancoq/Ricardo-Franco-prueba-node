@@ -3,7 +3,7 @@ const { Model, Sequelize } = _sequelize;
 
 export default class tiendas_productos extends Model {
   static init(sequelize, DataTypes) {
-  return super.init({
+  return sequelize.define('tiendas_productos', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
@@ -45,7 +45,6 @@ export default class tiendas_productos extends Model {
       }
     }
   }, {
-    sequelize,
     tableName: 'tiendas_productos',
     timestamps: false,
     indexes: [

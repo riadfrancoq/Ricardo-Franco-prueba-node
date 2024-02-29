@@ -3,7 +3,7 @@ const { Model, Sequelize } = _sequelize;
 
 export default class tiendas_promociones extends Model {
   static init(sequelize, DataTypes) {
-  return super.init({
+  return sequelize.define('tiendas_promociones', {
     id: {
       autoIncrement: true,
       type: DataTypes.MEDIUMINT.UNSIGNED,
@@ -40,7 +40,6 @@ export default class tiendas_promociones extends Model {
       }
     }
   }, {
-    sequelize,
     tableName: 'tiendas_promociones',
     timestamps: false,
     indexes: [

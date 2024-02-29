@@ -3,7 +3,7 @@ const { Model, Sequelize } = _sequelize;
 
 export default class carritos extends Model {
   static init(sequelize, DataTypes) {
-  return super.init({
+  return sequelize.define('carritos', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
@@ -40,7 +40,6 @@ export default class carritos extends Model {
       }
     }
   }, {
-    sequelize,
     tableName: 'carritos',
     timestamps: true,
     indexes: [
