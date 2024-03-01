@@ -25,7 +25,6 @@ export const getProductosFromTiendas = async (req, res) => {
 
                 ]
                 ,
-                required: true,
                 include: [{
                     association: "tiendas_promociones",
                     attributes: [],
