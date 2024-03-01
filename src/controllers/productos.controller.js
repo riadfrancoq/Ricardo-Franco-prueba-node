@@ -13,7 +13,7 @@ const { productos, tiendas_productos} = tables;
         });
     res.status(201).json({
         message: "Se a creado un producto satisfactoriamente",
-        product: product
+        result: product
 
     });
         
@@ -43,7 +43,7 @@ export const addProductoToTienda = async(req, res) => {
 
     if (checkIfExists.length >= 1 ) {
         return res.status(403).json({
-            mesage: "Este producto ya existe en la tienda"
+            message: "Este producto ya existe en la tienda"
         });
     }
 
@@ -52,7 +52,7 @@ export const addProductoToTienda = async(req, res) => {
         });
     res.status(200).json({
         message: "Producto añadido satisfactoriamente",
-        product
+        result: product
     })
     } catch (error) {
         console.log(error);
@@ -64,24 +64,6 @@ export const addProductoToTienda = async(req, res) => {
 };
 
 
-export const getProductosFromTiendas = async (req, res) => {
 
-    const {id} = req.params;
-
-    try {
-       
-        const [rows] = await pool.query("SELECT tp.compra_maxima, tp.valor, p.estado, p.kit, p.barcode, p.nombre AS producto, p.presentacion, p.descripcion, p.foto, p.peso  FROM tiendas_productos AS tp JOIN productos AS p ON tp.id_producto = p.id JOIN tiendas_promociones AS tpro ON tpro.id_tienda = ?  WHERE tp.id_tienda = ? AND tpro.estado = 1 AND DATE(NOW()) >= tpro.inicio AND DATE(NOW()) <= tpro.fin ",[id, id]);
-        res.status(200).json({
-            message: "200",
-            rows
-        })
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: "Oops Something goes wrong"
-        });
-    }
-
-};
 
 

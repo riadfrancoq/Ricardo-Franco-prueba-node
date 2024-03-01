@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { addProducto, addProductoToTienda, getProductosFromTiendas } from "../controllers/productos.controller.js";
+import { addProducto, addProductoToTienda } from "../controllers/productos.controller.js";
 import { check } from "express-validator";
 import { checkBarcode, checkName, checkProducto, checkTienda } from "../middlewares/db.check.js";
 import validateDocuments from '../middlewares/validate.documents.js';
@@ -21,9 +21,6 @@ router.post('/tiendas/productos',[
     validateDocuments
 ], addProductoToTienda);
 
-router.get('/tiendas/productos/:id',[
-    check('id').custom(checkTienda),
-    validateDocuments
-], getProductosFromTiendas);
+
 
 export default router;
