@@ -10,7 +10,16 @@ export const getProductosFromTiendas = async (req, res) => {
     const {id} = req.params;
     
     try {
+       /*
+       #
+       #
+       # NO TOCAR ES CATALOGO
+       #
+       #
+       #
+       #
        
+       */
         const getProductsFromStore = await tiendas_productos.findAll({
 
             include: [{

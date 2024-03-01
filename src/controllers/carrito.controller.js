@@ -26,36 +26,31 @@ export const getProductosCarrito = async (req, res) => {
     const {idUser, idTienda} = req.body;
     try {
         
-        const CarritosTiendas = await tiendas_productos.findAll({
-
-                include: [{
-                    association: "promocion",
-
+        const CarritosTiendas = await carritos.findAll({
+            include: [{
+                association: "id_producto_producto",
+                attributes: [],
+            },{
+                    association: "id_tienda_tienda",
                     include: [{
                         association: "tiendas_productos",
-                        include: [{
-                            association: "promocion",
-
-                        }]
-                    }
-                ],
-                    where: {
-                        estado: {
-                            [Op.gte]: 1
+                        where: {
+                            id_tienda: idTienda,
+                            id_producto: literal('"carritos->id_producto"')
                         }
-                    }
-                }]
-            /*
-            include: [{
-                association: "tiendas_productos",
-                where: {
-                    id_tienda: idTienda,
-                    id_producto: col('productos.id')
-                },
-    
+                    }]
+
             }
-            ]
-            */
+        ],
+
+            where: {
+                id_tienda: idTienda,
+                id_user: idUser
+            },
+            attributes: [
+                
+            'cantidad'
+        ],
  
         });
         res.status(200).json({
