@@ -1,3 +1,4 @@
+/*
 import {pool} from "../db.js";
 
 
@@ -16,3 +17,4 @@ export const listTiendas = async(req, res) => {
         });
     }
 };
+*/

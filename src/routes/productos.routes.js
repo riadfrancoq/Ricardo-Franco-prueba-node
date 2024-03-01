@@ -1,3 +1,4 @@
+/*
 import { Router } from "express";
 import { addProducto, addProductoToTienda, getProductosFromTiendas } from "../controllers/productos.controller.js";
 import { check } from "express-validator";
@@ -25,3 +26,4 @@ router.get('/tiendas/productos/:id',[
 ], getProductosFromTiendas);
 
 export default router;
+*/

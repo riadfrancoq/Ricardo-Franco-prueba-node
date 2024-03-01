@@ -1,3 +1,4 @@
+/*
 import {validationResult} from 'express-validator';
 
 
@@ -10,3 +11,4 @@ const validateDocuments = (req, res, next) => {
 }
 
 export default validateDocuments;
+*/

@@ -1,3 +1,5 @@
+/*
+
 import {pool} from '../db.js';
 
 
@@ -44,3 +46,5 @@ export const checkTienda = async(id) => {
         throw new Error('Tienda inexistente');
     };
 }
+
+*/
