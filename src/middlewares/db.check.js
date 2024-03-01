@@ -1,6 +1,6 @@
 import db from '../db/db.js';
 const {tables} = db;
-const { productos} = tables;
+const { productos, tiendas} = tables;
 
 export const checkBarcode = async(barcode) => {
     try {
@@ -33,8 +33,11 @@ export const checkName = async(name) => {
 export const checkProducto = async(id) => {
     try {
 
-        const [rows] = await pool.query("SELECT id FROM productos WHERE  id = ? ",[id]);
-        if (rows.length <= 0) throw new Error('Producto inexistente');
+        const products = await productos.findAll({
+            attributes: ['id'],
+            where: { id: id}
+        });
+        if (products.length <= 0) throw new Error('Producto inexistente');
     } catch(error) {
         console.log(error);
         throw new Error('Producto inexistente');
@@ -44,13 +47,13 @@ export const checkProducto = async(id) => {
 export const checkTienda = async(id) => {
     try {
 
-        const [rows] = await pool.query("SELECT id FROM tiendas WHERE  id = ? ",[id]);
-        if (rows.length <= 0) throw new Error('Tienda inexistente');
+        const stores = await tiendas.findAll({
+            attributes: ['id'],
+            where: { id: id}
+        });
+        if (stores.length <= 0) throw new Error('Tienda inexistente');
     } catch(error) {
         console.log(error);
         throw new Error('Tienda inexistente');
     };
 }
-/*
-
-*/

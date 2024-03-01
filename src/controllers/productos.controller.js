@@ -1,6 +1,6 @@
 import db from '../db/db.js';
 const {tables} = db;
-const { productos} = tables;
+const { productos, tiendas_productos} = tables;
 
  export const addProducto = async (req, res) => {
 
@@ -12,7 +12,7 @@ const { productos} = tables;
         estado, kit, barcode, nombre, presentacion, descripcion, foto, peso
         });
     res.status(201).json({
-        message: "Product has been created succesfully",
+        message: "Se a creado un producto satisfactoriamente",
         product: product
 
     });
@@ -29,14 +29,30 @@ const { productos} = tables;
 
 export const addProductoToTienda = async(req, res) => {
 
-    const {compra_maxima, valor, id_promocion, id_tienda, id_producto} = req.body;
+    const {compraMaxima, valor, idPromocion, idTienda, idProducto} = req.body;
 
     try {
-        
-    const [rows] = await pool.query("INSERT INTO tiendas_productos (compra_maxima, valor, id_promocion, id_tienda, id_producto) VALUES(?,?,?,?,?)",[compra_maxima, valor, id_promocion, id_tienda, id_producto]);
-    console.log(rows);
+    
+    const checkIfExists = await tiendas_productos.findAll({
+        attributes: ['id'],        
+        where: {
+            id_tienda: idTienda,
+            id_producto: idProducto
+        }
+    })
+
+    if (checkIfExists.length >= 1 ) {
+        return res.status(403).json({
+            mesage: "Este producto ya existe en la tienda"
+        });
+    }
+
+    const product = await tiendas_productos.create({
+        compra_maxima: compraMaxima, valor, id_promocion: idPromocion, id_tienda: idTienda, id_producto: idProducto
+        });
     res.status(200).json({
-        rows
+        message: "Producto añadido satisfactoriamente",
+        product
     })
     } catch (error) {
         console.log(error);
