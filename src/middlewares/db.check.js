@@ -1,6 +1,6 @@
 import db from '../db/db.js';
 const {tables} = db;
-const { productos, tiendas} = tables;
+const { productos, tiendas, users, tiendas_productos} = tables;
 
 export const checkBarcode = async(barcode) => {
     try {
@@ -15,7 +15,6 @@ export const checkBarcode = async(barcode) => {
         throw new Error('Barcode en uso');
     };
 }
-
 
 export const checkName = async(name) => {
     try {
@@ -54,6 +53,35 @@ export const checkTienda = async(id) => {
         if (stores.length <= 0) throw new Error('Tienda inexistente');
     } catch(error) {
         console.log(error);
-        throw new Error('Tienda inexistente');
+        throw new Error('Producto Inexistente en la Tienda');
     };
 }
+
+export const checkUser = async (id = 1) =>  {
+    try {
+        const Users = await users.findAll({
+            attributes: ['id'],
+            where: { id: id}
+        });
+        if (Users.length <= 0) throw new Error('Usuario Inexistente');
+    } catch(error) {
+        console.log(error);
+        throw new Error('Usuario Inexistente');
+    };
+};
+
+export const checkTiendasProductos = async (idProducto, {req}) => {
+    try {
+        const {idTienda} = req.body;
+        const ProductsInStore = await tiendas_productos.findAll({
+            where : {
+                id_tienda: idTienda,
+                id_producto: idProducto
+            }
+        });
+        if (ProductsInStore.length <= 0) throw new Error("La tienda no posee este producto");
+    } catch (error) {
+        console.log(error);
+        throw new Error('La tienda no posee este producto');
+    }
+};

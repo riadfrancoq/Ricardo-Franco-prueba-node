@@ -2,7 +2,7 @@ import { Router } from "express";
 import { check } from "express-validator";
 import { getProductosFromTiendas } from "../controllers/catalogo.controller.js";
 import validateDocuments from '../middlewares/validate.documents.js';
-import { checkBarcode, checkName, checkProducto, checkTienda } from "../middlewares/db.check.js";
+import {checkTienda } from "../middlewares/db.check.js";
 
 const router = Router()
 

@@ -1,6 +1,4 @@
 import db from '../db/db.js';
-import { sql } from '@sequelize/core';
-
 import { Op, literal} from 'sequelize';
 const {gte } = Op;
 const {tables} = db;
