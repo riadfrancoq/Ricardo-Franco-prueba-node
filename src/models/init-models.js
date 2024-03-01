@@ -41,7 +41,7 @@ export default function initModels(sequelize) {
   productos.hasMany(tiendas_productos, { as: "tiendas_productos", foreignKey: "id_producto"});
   pedidos_productos.belongsTo(promociones, { as: "id_promocion_promocione", foreignKey: "id_promocion"});
   promociones.hasMany(pedidos_productos, { as: "pedidos_productos", foreignKey: "id_promocion"});
-  tiendas_productos.belongsTo(promociones, { as: "id_promocion_promocione", foreignKey: "id_promocion"});
+  tiendas_productos.belongsTo(promociones, { as: "promocion", foreignKey: "id_promocion"});
   promociones.hasMany(tiendas_productos, { as: "tiendas_productos", foreignKey: "id_promocion"});
   tiendas_promociones.belongsTo(promociones, { as: "id_promocion_promocione", foreignKey: "id_promocion"});
   promociones.hasMany(tiendas_promociones, { as: "tiendas_promociones", foreignKey: "id_promocion"});

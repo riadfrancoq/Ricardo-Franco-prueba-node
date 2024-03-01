@@ -1,6 +1,10 @@
 import db from '../db/db.js';
+import { sql } from '@sequelize/core';
+
+import { Op, literal} from 'sequelize';
+const {gte } = Op;
 const {tables} = db;
-const { productos, tiendas_productos} = tables;
+const { productos, tiendas_productos, promociones} = tables;
 
 
 export const getProductosFromTiendas = async (req, res) => {
@@ -9,7 +13,34 @@ export const getProductosFromTiendas = async (req, res) => {
     
     try {
        
-        const getProductsFromStore = await tiendas_productos.findAll({where: {id_tienda: id}});
+        const getProductsFromStore = await tiendas_productos.findAll({
+            include: [{
+                association: "promocion",
+                attributes: [
+                    ['id', 'id_promocion'],
+                    'nombre',
+                    'porcentaje',
+                    [literal('tiendas_productos.valor * ((100 -promocion.porcentaje) / 100)'), 'valor_promocion'],
+
+
+                ]
+                ,
+                required: true,
+                include: [{
+                    association: "tiendas_promociones",
+                    attributes: [],
+                    where: {estado: {
+                        [gte]: 1
+                    },
+                    id_tienda: id
+                }
+                }]
+            }
+            ],
+            where: {
+                id_tienda: id
+            }
+        });
 
 
         res.status(200).json({
