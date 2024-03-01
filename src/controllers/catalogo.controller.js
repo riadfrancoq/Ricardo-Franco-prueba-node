@@ -12,7 +12,11 @@ export const getProductosFromTiendas = async (req, res) => {
     try {
        
         const getProductsFromStore = await tiendas_productos.findAll({
+
             include: [{
+                    association: "id_producto_producto",
+                    attributes: []
+            },{
                 association: "promocion",
                 attributes: [
                     ['id', 'id_promocion'],
@@ -21,8 +25,7 @@ export const getProductosFromTiendas = async (req, res) => {
                     [literal('tiendas_productos.valor * ((100 -promocion.porcentaje) / 100)'), 'valor_promocion'],
 
 
-                ]
-                ,
+                ],
                 include: [{
                     association: "tiendas_promociones",
                     attributes: [],
@@ -34,6 +37,14 @@ export const getProductosFromTiendas = async (req, res) => {
                 }]
             }
             ],
+            attributes: [
+                'id_producto',
+                'id_tienda',
+                [literal('id_producto_producto.nombre'), 'nombre'],
+                [literal('id_producto_producto.presentacion'), 'presentacion'],
+                [literal('id_producto_producto.barcode'), 'barcode'],
+                'valor'
+                ],
             where: {
                 id_tienda: id
             }

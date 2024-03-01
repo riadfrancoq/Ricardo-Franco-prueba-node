@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { addCarrito } from "../controllers/carrito.controller.js";
+import { addCarrito, getProductosCarrito } from "../controllers/carrito.controller.js";
 import validateDocuments from '../middlewares/validate.documents.js';
 import {checkTienda, checkProducto, checkUser, checkTiendasProductos } from "../middlewares/db.check.js";
 
@@ -17,5 +17,11 @@ router.post('/carrito',[
 
     validateDocuments
 ], addCarrito);
+
+router.get('/carrito',[
+    check('idUser').notEmpty().withMessage("El id del usuario es requerido").bail().toInt().isInt().withMessage("El id del usuario debe ser un entero ").bail().custom(checkUser).withMessage("Usuario inexistente en la base de datos").bail(),
+    check('idTienda').toInt().isInt().withMessage('El id de la tienda tiene que ser un entero').bail().custom(checkTienda).withMessage('Tienda Inexistente').bail(),
+    validateDocuments
+],getProductosCarrito);
 
 export default router;
