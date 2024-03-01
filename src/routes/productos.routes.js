@@ -1,4 +1,4 @@
-/*
+
 import { Router } from "express";
 import { addProducto, addProductoToTienda, getProductosFromTiendas } from "../controllers/productos.controller.js";
 import { check } from "express-validator";
@@ -9,6 +9,7 @@ const router = Router();
 router.post('/productos',[
     check('nombre').notEmpty().withMessage('El nombre es requerido').bail().isString().withMessage('Numeros no se aceptan como nombre').bail().isLength({max: 60}).withMessage('El nombre no puede exceder los 60 caracteres').bail().custom(checkName),
     check('barcode').notEmpty().withMessage('El barcode es requerido').bail().custom(checkBarcode),
+    check('presentacion').notEmpty().withMessage('La presentacion es requerida').bail().isString().withMessage("la presentacion tiene que ser un texto").bail(),
     validateDocuments
 ], addProducto);
 
@@ -26,4 +27,3 @@ router.get('/tiendas/productos/:id',[
 ], getProductosFromTiendas);
 
 export default router;
-*/

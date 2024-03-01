@@ -1,30 +1,35 @@
-/*
-
-import {pool} from '../db.js';
-
+import db from '../db/db.js';
+const {tables} = db;
+const { productos} = tables;
 
 export const checkBarcode = async(barcode) => {
     try {
 
-        const [rows] = await pool.query("SELECT barcode FROM productos WHERE  barcode = ? ",[barcode]);
-        if (rows.length >= 1) throw new Error('Barcode en uso');
+        const Barcode = await productos.findAll({
+            attributes: ['id'],
+            where: { barcode}
+        });
+        if (Barcode.length >= 1) throw new Error('Barcode en uso');
     } catch(error) {
-        console.log(error);
+        console.log(1, error);
         throw new Error('Barcode en uso');
     };
 }
 
+
 export const checkName = async(name) => {
     try {
 
-        const [rows] = await pool.query("SELECT name FROM productos WHERE  name = ? ",[name]);
-        if (rows.length >= 1) throw new Error('Nombre en uso');
+        const Name = await productos.findAll({
+            attributes: ['id'],
+            where: { nombre: name}
+        });
+        if (Name.length >= 1) throw new Error('Nombre en uso');
     } catch(error) {
         console.log(error);
         throw new Error('Nombre en uso');
     };
 }
-
 export const checkProducto = async(id) => {
     try {
 
@@ -46,5 +51,6 @@ export const checkTienda = async(id) => {
         throw new Error('Tienda inexistente');
     };
 }
+/*
 
 */

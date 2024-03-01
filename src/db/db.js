@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import dbConfig from '../config/config.js';
 import models from '../models/init-models.js';
-const {HOST, USER, PASSWORD, DB, DIALECT, POOL} = dbConfig;
+const {HOST, USER, PASSWORD, DB, DIALECT ,POOL} = dbConfig;
 const {MAX, MIN, ACQUIRE, IDLE} = POOL;
 
 const sequelize = new Sequelize(
@@ -9,6 +9,7 @@ const sequelize = new Sequelize(
     USER,
     PASSWORD,
     {
+        logging: false,
         host: HOST,
         dialect: DIALECT,
         operatorsAliases: false,
@@ -22,12 +23,13 @@ const sequelize = new Sequelize(
 
 )
 
-sequelize.authenticate().then(() => {
+try {
+    sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+} catch (error) {
+    console.error(err);    
+}
 
-})
-.catch(err => {
-    console.error(err);
-});
 
 const db = {};
 

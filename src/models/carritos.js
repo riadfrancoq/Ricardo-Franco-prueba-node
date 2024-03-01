@@ -41,7 +41,7 @@ export default class carritos extends Model {
     }
   }, {
     tableName: 'carritos',
-    timestamps: true,
+    timestamps: false,
     indexes: [
       {
         name: "PRIMARY",
